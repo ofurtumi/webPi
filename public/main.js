@@ -4,116 +4,97 @@ const user = document.querySelector("#user");
 const messages = document.querySelector("#messages");
 const form = document.querySelector("#form");
 const input = document.querySelector("#input");
-let open = true;
+const linkForFavicon = document.querySelector(`head > link[rel='icon']`);
 
-let username = localStorage.getItem("username")
+const rohoholegur = faviconTemplate("🤠");
+const kassiOpinn = faviconTemplate("📫");
+const kassiLokad = faviconTemplate("📪");
+let pageOpen = true;
+
+let username = localStorage.getItem("username");
 if (username) {
-    user.value = username
+  user.value = username;
 }
 
 document.addEventListener("visibilitychange", (e) => {
-  if (open) open = false;
+  if (pageOpen) pageOpen = false;
   else {
-    document.title = "innanhússpjall";
-    blinkTitleStop();
-    open = true;
+    linkForFavicon.setAttribute(`href`, `data:image/svg+xml,${rohoholegur}`);
+    pageOpen = true;
   }
 });
 
 form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    let time = nuna()
+  e.preventDefault();
+  let time = nuna();
   if (input.value) {
     if (user.value) {
-      socket.emit("chat message", user.value, input.value,time);
+      socket.emit("chat message", user.value, input.value, time);
     } else {
-      socket.emit("chat message", "???", input.value,time);
+      socket.emit("chat message", "???", input.value, time);
     }
     input.value = "";
   }
 });
 
-socket.on("chat message", function (usr, msg,time) {
-  if (!open) blinkTitle("innanhússpjall ✉️", "innanhússpjall", 1000, true);
+socket.on("chat message", function (usr, msg, time) {
+  if (!pageOpen) ath()
   let item = document.createElement("li");
   item.textContent = usr + ": " + msg;
-  item.classList.add("m")
+  item.classList.add("m");
 
-  let t = document.createElement("li")
-  t.textContent = time
-  t.classList.add("t")
-  item.appendChild(t)
+  let t = document.createElement("li");
+  t.textContent = time;
+  t.classList.add("t");
+  item.appendChild(t);
 
   messages.appendChild(item);
   window.scrollTo(0, document.body.scrollHeight);
 });
 
 function nuna() {
-    let date = new Date();
-    // let output = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}-${date.getHours()}:${date.getMinutes()}`
-    let output = `${('00'+date.getHours()).slice(-2)}:${('00'+date.getMinutes()).slice(-2)}`
+  let date = new Date();
+  // let output = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}-${date.getHours()}:${date.getMinutes()}`
+  let output = `${("00" + date.getHours()).slice(-2)}:${(
+    "00" + date.getMinutes()
+  ).slice(-2)}`;
 
-    return output
+  return output;
 }
 
-user.addEventListener("change",() => {
-    localStorage.setItem('username', user.value)
-})
+user.addEventListener("change", () => {
+  localStorage.setItem("username", user.value);
+});
 
-var hold = "";
-
-function blinkTitle(msg1, msg2, delay, isFocus, timeout) {
-  if (isFocus == null) {
-    isFocus = false;
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  if (timeout == null) {
-    timeout = false;
-  }
-
-  if (timeout) {
-    setTimeout(blinkTitleStop, timeout);
-  }
-
-  document.title = msg1;
-
-  if (isFocus == false) {
-    hold = window.setInterval(function () {
-      if (document.title == msg1) {
-        document.title = msg2;
-      } else {
-        document.title = msg1;
-      }
-    }, delay);
-  }
-
-  if (isFocus == true) {
-    var onPage = false;
-    var testflag = true;
-
-    var initialTitle = document.title;
-
-    window.onfocus = function () {
-      onPage = true;
-    };
-
-    window.onblur = function () {
-      onPage = false;
-      testflag = false;
-    };
-
-    hold = window.setInterval(function () {
-      if (onPage == false) {
-        if (document.title == msg1) {
-          document.title = msg2;
-        } else {
-          document.title = msg1;
+async function ath() {
+    let x = true
+    while(!pageOpen) {
+        if (x) {
+            linkForFavicon.setAttribute(`href`, `data:image/svg+xml,${kassiLokad}`);
+            x = false
         }
-      }
-    }, delay);
-  }
+        else {
+            linkForFavicon.setAttribute(`href`, `data:image/svg+xml,${kassiOpinn}`)
+            x = true
+        }
+        await sleep(1000)
+        if (pageOpen) {
+            console.log("opið")
+            return
+        }
+    }
 }
 
-function blinkTitleStop() {
-  clearInterval(hold);
-}
+function faviconTemplate(icon) {
+    return `
+      <svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22>
+        <text y=%22.9em%22 font-size=%2290%22>
+          ${icon}
+        </text>
+      </svg>
+    `.trim();
+  }
