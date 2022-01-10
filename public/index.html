@@ -8,40 +8,19 @@
     <title>innanhússpjall</title>
 </head>
 <body>
-    <ul id="messages"></ul>
-    <form id="form" action="">      
-        <input id="user" autocomplete="off" placeholder="notendanafn">
-        <input type="text" id="input" autocomplete="off" placeholder="skilaboð"/>
-        <button>senda</button>    
-    </form>
+    <header>
+
+    </header>
+    <main>
+        <ul id="messages"></ul>
+        <form id="form" action="">      
+            <input id="user" autocomplete="off" placeholder="notandi">
+            <input type="text" id="input" autocomplete="off" placeholder="skilaboð"/>
+            <button>senda</button>    
+        </form>
+    </main>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        const socket = io();
-
-        const user = document.querySelector("#user")
-        const messages = document.querySelector('#messages');
-        const form = document.querySelector('#form');
-        const input = document.querySelector('#input');
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (input.value) {
-                if (user.value) {
-                    socket.emit('chat message', user.value,input.value);
-                }
-                else {
-                    socket.emit('chat message', "???", input.value)
-                }
-            input.value = '';
-            }
-        });
-
-        socket.on('chat message', function(usr,msg) {
-            let item = document.createElement('li');
-            item.textContent = usr + ": " + msg;
-            messages.appendChild(item);
-            window.scrollTo(0, document.body.scrollHeight);
-        });
-    </script>
+    <script src="invert.js"></script>
+    <script src="./main.js"></script>
 </body>
 </html>

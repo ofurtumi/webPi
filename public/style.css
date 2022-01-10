@@ -5,6 +5,7 @@
 
 * {
     font-family: monospace;
+    transition: ease-in-out .25s;
 }
 
 body {
@@ -13,22 +14,38 @@ body {
     margin: 0;
     font-size: 20px;
     font-family: monospace;
+    transition: ease-in-out .2s;
 }
 
 ul {
+    padding-top: 1em;
+    padding-bottom: 1em;
     padding-inline-start: 0;
     list-style: none;
-    height: 80vh;
+    min-height: 80vh;
     width: 50vw;
     margin: 0 auto;
+    margin-bottom: 15vh;
     border: 2px solid var(--text);
     border-top: 0;
     background-color: var(--background);
     color: var(--text);
 }
 
+.m {
+    padding: 0 1em;
+}
+
+.t {
+    font-size: .75em;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
+}
+
 input {
     color: var(--text);
+    background-color: var(--background);
     border: 2px solid var(--text);
     border-radius: 7px;
     padding: 0.5em;
@@ -37,7 +54,7 @@ input {
 
 form {
     margin: auto;
-    position: absolute;
+    position: fixed;
     bottom: 2em;
     width: 100%;
     display: grid;
@@ -74,10 +91,23 @@ button {
     height: 100%;
     padding: 0.5em;
     cursor: pointer;
-    transition: ease-in-out .1s;
 }
 
 button:hover {
     background-color: var(--text);
     color: var(--background);
+}
+
+#inv {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:fixed;
+    bottom: 2rem;
+    left: 2rem;
+    width: 5rem;
+    height: 5rem;
+    font-size: 2.5em;
+    z-index: 10;
 }
