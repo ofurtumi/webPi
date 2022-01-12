@@ -1,11 +1,13 @@
 :root {
     --background: #fff;
     --text: #000;
+    --anim: ease-in-out .25s;
+    --body-anim: ease-in-out .2s;
 }
 
 * {
     font-family: monospace;
-    transition: ease-in-out .25s;
+    transition: var(--anim);
 }
 
 body {
@@ -14,7 +16,7 @@ body {
     margin: 0;
     font-size: 20px;
     font-family: monospace;
-    transition: ease-in-out .2s;
+    transition: var(--body-anim);
 }
 
 ul {
