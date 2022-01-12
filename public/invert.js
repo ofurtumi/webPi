@@ -2,6 +2,8 @@ const header = document.querySelector("header");
 const root = document.documentElement
 let button = document.createElement("button");
 button.id = "inv"
+button.textContent = "☽"
+
 let dark;
 
 if (localStorage.getItem("dark")) {

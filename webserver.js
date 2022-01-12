@@ -30,8 +30,8 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(8080, () => {  
-    console.log('listening on *:8080');
+server.listen(80, () => {  
+    console.log('listening on *:80');
 });
 
 
