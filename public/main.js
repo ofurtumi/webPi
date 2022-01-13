@@ -37,6 +37,12 @@ form.addEventListener("submit", function (e) {
   }
 });
 
+socket.on('clear page', function() {
+  while (messages.firstChild) {
+    messages.removeChild(messages.lastChild)
+  }
+})
+
 socket.on("chat message", function (usr, msg, time) {
   if (!pageOpen) ath()
   let item = document.createElement("li");

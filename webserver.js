@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {  
     console.log('a user connected');
+    io.to(socket.id).emit('clear page')
     history.forEach(e => {
         io.to(socket.id).emit('chat message', e.user, e.message, e.time)
     });
