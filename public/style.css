@@ -36,6 +36,7 @@ ul {
 
 .m {
     padding: 0 1em;
+    word-wrap: break-word;
 }
 
 .t {
