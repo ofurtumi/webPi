@@ -7,4 +7,4 @@ einfalt í uppsetningu:
 3. keyra
 ```node webserver.js```
 
-þá ætti þetta að keyra upp á localhost:80
+þá ætti þetta að keyra upp á localhost:6969
